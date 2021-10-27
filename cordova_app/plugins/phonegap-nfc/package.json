@@ -22,7 +22,7 @@
   "_resolved": "https://registry.npmjs.org/phonegap-nfc/-/phonegap-nfc-0.6.6.tgz",
   "_shasum": "7d635bc92d14eae003e799195bf02c3f7a2b9b76",
   "_spec": "phonegap-nfc@^0.6.6",
-  "_where": "/Users/valentinbrosseau/javascript/vuejs-cordova-sample/cordova_app",
+  "_where": "/Users/valentinbrosseau/javascript/PWA Watchlist/cordova_app",
   "author": {
     "name": "Don Coleman",
     "email": "don.coleman@gmail.com"

@@ -1,6 +1,6 @@
-# vuejs-cordova-sample
+# PWA Watchlist
 
-[![Build Status](https://travis-ci.org/c4software/vuejs-cordova-sample.svg?branch=master)](https://travis-ci.org/c4software/vuejs-cordova-sample)
+[![Build Status](https://travis-ci.org/c4software/PWA Watchlist.svg?branch=master)](https://travis-ci.org/c4software/PWA Watchlist)
 
 > Sample VueJS app thats use Cordova capabilities
 

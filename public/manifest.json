@@ -1,0 +1,15 @@
+{
+  "name": "PWA Watchlist",
+  "short_name": "Watchlist",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#3f51b5",
+  "background_color": "#fafafa",
+  "icons": [
+    {
+      "src": "stick.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}

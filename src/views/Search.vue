@@ -1,18 +1,27 @@
 <template>
-  <v-container text-center>
-    <v-card color="red lighten-2" dark>
-      <v-card-title class="text-h5 red lighten-3">
-        Search for Public APIs
+  <div
+    style="
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      align-items: center;
+    "
+    text-center
+  >
+    <v-card style="width: 600px" color="indigo lighten" dark>
+      <v-card-title class="text-h5 indigo lighten-1">
+        Rechercher une oeuvre
       </v-card-title>
       <v-card-text>
-        Explore hundreds of free API's ready for consumption! For more
+        <!-- Explore hundreds of free API's ready for consumption! For more
         information visit
         <a
           class="grey--text text--lighten-3"
           href="https://github.com/toddmotto/public-apis"
           target="_blank"
           >the GitHub repository</a
-        >.
+        >. -->
       </v-card-text>
       <v-card-text>
         <v-autocomplete
@@ -24,10 +33,8 @@
           clearable
           hide-no-data
           hide-selected
-          item-text="title"
-          item-value="id"
-          label="Public APIs"
-          placeholder="Start typing to Search"
+          label="Liste des oeuvres"
+          placeholder="Rechercher une oeuvre.."
           prepend-icon="mdi-database-search"
           return-object
         ></v-autocomplete>
@@ -36,46 +43,63 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="grey darken-3" @click="clearButton()">
-          Clear
+          Reinitialiser
           <v-icon right> mdi-close-circle </v-icon>
         </v-btn>
       </v-card-actions>
     </v-card>
-    <v-hover>
-      <template v-slot:default="{ hover }">
-        <div class="card-film">
-          <v-card
-            v-for="item in items"
-            v-bind:key="item.id"
-            style="
-              width: 20%;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-            "
-          >
-            <v-img
-              hover
-              :src="'https://image.tmdb.org/t/p/w342/' + item.poster_path"
-              width="50%"
-              style="pading: 0 1rem"
-            ></v-img>
-            <p v-text="item.name || item.title"></p>
-            <v-fade-transition>
+    <!-- <v-hover> -->
+    <!-- <template v-slot:default="{ hover }"> -->
+    <div class="card-film">
+      <v-card
+        class="myCard"
+        v-for="(item, index) in items"
+        v-bind:key="index"
+        style="
+          width: 200px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin: 1rem;
+        "
+      >
+        <v-img
+          hover
+          :src="
+            item.poster_path != null
+              ? 'https://image.tmdb.org/t/p/w342/' + item.poster_path
+              : 'https://via.placeholder.com/250x350'
+          "
+          style="padding: 0 1rem"
+        ></v-img>
+        <p v-text="item.name || item.title"></p>
+        <!-- <v-fade-transition>
               <v-overlay v-if="hover" absolute color="#036358">
                 <v-btn
                   @click="
-                    addItem(item.id, item.poster_path, item.name || item.title)
+                    addItem(
+                      item,
+                      item.id,
+                      item.poster_path,
+                      item.name || item.title
+                    )
                   "
-                  >See more info</v-btn
+                  >Ajouter</v-btn
                 >
               </v-overlay>
-            </v-fade-transition>
-          </v-card>
-        </div>
-      </template>
-    </v-hover>
-  </v-container>
+            </v-fade-transition> -->
+        <v-btn
+          class="success"
+          @click="
+            addItem(item, item.id, item.poster_path, item.name || item.title)
+          "
+          >Ajouter</v-btn
+        >
+      </v-card>
+    </div>
+    <!-- </template> -->
+    <!-- </v-hover> -->
+  </div>
 </template>
 <script>
 export default {
@@ -85,7 +109,7 @@ export default {
     results: [],
     overlay: false,
     isLoading: false,
-    // model: null,
+    model: null,
     search: null,
     myVarItems: null,
     myWatchlist: [],
@@ -96,23 +120,28 @@ export default {
       // model = null;
       this.results = [];
     },
-    addItem(id, url, name, title) {
-      console.log("id : " + id);
+    addItem(item, id, url, name, title) {
+      // console.log(item);
+      // console.log("id : " + id);
       var myTitle;
       if (name != null) {
         myTitle = name;
-        console.log("name : " + myTitle);
+        // console.log("name : " + myTitle);
       } else {
         myTitle = title;
-        console.log("title : " + myTitle);
+        // console.log("title : " + myTitle);
       }
-      url = "https://image.tmdb.org/t/p/w342" + url;
-      console.log("url :" + url);
-      if (this.myWatchlist.includes(id)) {
+      url = url;
+      // console.log("url :" + url);
+      // console.log(this.myWatchlist);
+      var myCurrentWatchlist = JSON.stringify(this.myWatchlist);
+      // console.log(myCurrentWatchlist.includes(id))
+      if (myCurrentWatchlist.includes(id)) {
         console.log("Film déjà ajouté !");
       } else {
-        this.myWatchlist.push({ id: id, title: myTitle, url: url });
+        this.myWatchlist.push({ item: item, id: id, title: myTitle, url: url });
         localStorage.setItem("watchlist", JSON.stringify(this.myWatchlist));
+        console.log("Film ajouté : " + item.id);
       }
     },
   },
@@ -183,9 +212,10 @@ export default {
           .then((res) => res.json())
           .then((res) => {
             const { count, results } = res;
+
             this.count = count;
             this.results = results;
-            console.log(this.count);
+            // console.log(this.count);
           })
           .catch((err) => {
             console.log(err);
@@ -199,10 +229,27 @@ export default {
 
 <style scoped>
 .card-film {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  width: 100%;
+  width: 100vw;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
   margin: 0 !important;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+.v-application p {
+  display: flex;
+  margin: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 </style>
