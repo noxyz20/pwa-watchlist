@@ -48,13 +48,25 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+  <v-hover>
+    <template v-slot:default="{ hover }">
   <div class="card-film">
-    <div class="" v-for="item in items" v-bind:key="item.id" style="width: 20%;">
-        <img :src="'https://image.tmdb.org/t/p/w342/'+ item.poster_path" width="50%" style="pading: 0 1rem">
+    <v-card v-for="item in items" v-bind:key="item.id" style="width: 20%; display:flex; flex-direction:  column; justify-content: center;">
+        <v-img hover :src="'https://image.tmdb.org/t/p/w342/'+ item.poster_path" width="50%" style="pading: 0 1rem"></v-img>
         <p v-text="item.name || item.title"></p>
-    </div>
+         <v-fade-transition>
+          <v-overlay
+            v-if="hover"
+            absolute
+            color="#036358"
+          >
+            <v-btn :href="'/'+item.id">See more info</v-btn>
+          </v-overlay>
+        </v-fade-transition>
+    </v-card>
   </div>
-   
+    </template>
+  </v-hover>
 </v-container>
 
 </template>
@@ -64,6 +76,7 @@
     data: () => ({
       descriptionLimit: 60,
       results: [],
+      overlay: false,
       isLoading: false,
       model: null,
       search: null,
