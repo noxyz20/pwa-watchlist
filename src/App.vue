@@ -1,11 +1,12 @@
 <template>
   <v-app toolbar>
-    <myToolbar />
+   <!-- <myToolbar />
     <v-content>
       <v-slide-y-transition mode="out-in">
         <router-view></router-view>
       </v-slide-y-transition>
-    </v-content>
+    </v-content>-->
+     <router-view></router-view>
   </v-app>
 </template>
 

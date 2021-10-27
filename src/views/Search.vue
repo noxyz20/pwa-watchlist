@@ -22,6 +22,7 @@
         :loading="isLoading"
         :search-input.sync="search"
         color="white"
+        clearable
         hide-no-data
         hide-selected
         item-text="title"
@@ -33,22 +34,6 @@
       ></v-autocomplete>
     </v-card-text>
     <v-divider></v-divider>
-    <v-expand-transition>
-      <v-list
-        v-if="model"
-        class="red lighten-3"
-      >
-        <v-list-item
-          v-for="(field, i) in fields"
-          :key="i"
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="field.value"></v-list-item-title>
-            <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-expand-transition>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
@@ -63,7 +48,15 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+  <div class="card-film">
+    <div class="" v-for="item in items" v-bind:key="item.id" style="width: 20%;">
+        <img :src="'https://image.tmdb.org/t/p/w342/'+ item.poster_path" width="50%" style="pading: 0 1rem">
+        <p v-text="item.name || item.title"></p>
+    </div>
+  </div>
+   
 </v-container>
+
 </template>
 <script>
   export default {
@@ -129,4 +122,12 @@
   }
 </script>
 
-<style scoped></style>
+<style scoped>
+.card-film {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  margin:0 !important;
+  flex-wrap: wrap;
+}
+</style>
