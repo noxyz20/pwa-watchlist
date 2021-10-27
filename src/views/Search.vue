@@ -24,8 +24,8 @@
         color="white"
         hide-no-data
         hide-selected
-        item-text="Description"
-        item-value="API"
+        item-text="title"
+        item-value="id"
         label="Public APIs"
         placeholder="Start typing to Search"
         prepend-icon="mdi-database-search"
@@ -70,7 +70,7 @@
     name: "search",
     data: () => ({
       descriptionLimit: 60,
-      entries: [],
+      results: [],
       isLoading: false,
       model: null,
       search: null,
@@ -88,12 +88,14 @@
         })
       },
       items () {
-        return this.entries.map(entry => {
-          const Description = entry.Description.length > this.descriptionLimit
-            ? entry.Description.slice(0, this.descriptionLimit) + '...'
-            : entry.Description
+        return this.results.map(entry => {
+          // const title = entry.title.length > this.descriptionLimit
+          //   ? entry.title.slice(0, this.descriptionLimit) + '...'
+          //   : entry.title
+          
+          const title = entry.title
 
-          return Object.assign({}, entry, { Description })
+          return Object.assign({}, entry, { title })
         })
       },
     },
@@ -101,7 +103,7 @@
     watch: {
       search (val) {
         // Items have already been loaded
-        if (this.items.length > 0) return
+        // if (this.items.length > 0) return
 
         // Items have already been requested
         if (this.isLoading) return
@@ -109,12 +111,14 @@
         this.isLoading = true
 
         // Lazily load input items
-        fetch('https://api.publicapis.org/entries')
+        fetch('https://api.themoviedb.org/3/search/multi?api_key=650af1e6bf1ba3da24d035e79fef613a&language=fr&query=' + val + '&page=1&include_adult=false')
+        // fetch('https://api.publicapis.org/results')
           .then(res => res.json())
           .then(res => {
-            const { count, entries } = res
+            const { count, results } = res
             this.count = count
-            this.entries = entries
+            this.results = results
+            console.log(this.count)
           })
           .catch(err => {
             console.log(err)
