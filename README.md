@@ -1,24 +1,49 @@
-# pwa-watchlist
+# vuejs-cordova-sample
 
-## Project setup
-```
+[![Build Status](https://travis-ci.org/c4software/vuejs-cordova-sample.svg?branch=master)](https://travis-ci.org/c4software/vuejs-cordova-sample)
+
+> Sample VueJS app thats use Cordova capabilities
+
+![Demo screenshot](demo.png)
+
+## Build Setup
+
+```bash
+# install dependencies
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
+# serve with hot reload at localhost:8080
 npm run serve
-```
 
-### Compiles and minifies for production
-```
+# build for production to run in Cordova
 npm run build
+
 ```
 
-### Lints and fixes files
-```
-npm run lint
+## First Cordova build
+
+Run the command :
+
+```sh
+npm run build
+cd cordova_app
+cordova platform add android
+cordova run # or build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Next Cordova build
+
+```sh
+npm run cordova_run # or cordova_build
+```
+
+## Plugins
+
+- cordova-plugin-dialogs
+- cordova-plugin-vibration
+- cordova-plugin-geolocation
+- cordova-plugin-flashlight
+- cordova-plugin-camera
+- phonegap-nfc
+- cordova-plugin-statusbar
+- cordova-plugin-headercolor
