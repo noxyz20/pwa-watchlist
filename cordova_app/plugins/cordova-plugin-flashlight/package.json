@@ -22,7 +22,7 @@
   "_resolved": "https://registry.npmjs.org/cordova-plugin-flashlight/-/cordova-plugin-flashlight-3.2.0.tgz",
   "_shasum": "d09a40ce30ad36a9f004050124b6e815281fbbb2",
   "_spec": "cordova-plugin-flashlight@^3.2.0",
-  "_where": "/Users/valentinbrosseau/javascript/PWA Watchlist/cordova_app",
+  "_where": "/Users/valentinbrosseau/javascript/Watchlist/cordova_app",
   "author": {
     "name": "Eddy Verbruggen",
     "email": "eddyverbruggen@gmail.com",
